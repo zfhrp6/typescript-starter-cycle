@@ -48,6 +48,6 @@
     "webpack": "^3.8.1",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-dev-server": "^2.9.2",
-    "yargs": "^9.0.1"
+    "yargs": "^17.0.1"
   }
 }
