@@ -25,7 +25,7 @@ const NavLinkComponent = ({ dom, history, href$, title$ }: Sources): Sinks => {
       .flatten();
   const vdom$ =
     xs.combine(href$, active$, title$)
-      .map(([ href, active, title ]) => a(`${!!active ? '.active' : ''}`, { attrs: { href, title } }, [title]));
+      .map(([ href, active, title ]) => a(`${active ? '.active' : ''}`, { attrs: { href, title } }, [title]));
   return {
     dom: vdom$,
     history: xs.empty()

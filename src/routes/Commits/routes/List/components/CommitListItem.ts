@@ -54,6 +54,6 @@ const CommitListItemComponent = ({ dom, commit$ }: Sources): Sinks => {
     dom: vdom$,
     history: navigateTo$
   };
-}
+};
 
 export const CommitListItem = (sources: Sources): Sinks => isolate(CommitListItemComponent)(sources);

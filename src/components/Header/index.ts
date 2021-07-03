@@ -2,8 +2,8 @@ import { Stream, MemoryStream } from 'xstream';
 import { DOMSource, VNode, div, h1, em, br } from '@cycle/dom';
 import { style } from 'typestyle';
 import { rem } from 'csx';
-import { NavMenu } from './NavMenu';
 import { Location } from '@cycle/history';
+import { NavMenu } from './NavMenu';
 
 interface Sources {
   dom: DOMSource;

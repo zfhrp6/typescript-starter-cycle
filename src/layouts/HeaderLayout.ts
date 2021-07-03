@@ -1,9 +1,9 @@
-import { Layout } from './';
 import { Header } from 'components/Header';
 import { Stream } from 'xstream';
 import { header, div, hr, main } from '@cycle/dom';
 import { style } from 'typestyle';
 import { rem } from 'csx';
+import { Layout } from '.';
 
 const className = style({
   $nest: {

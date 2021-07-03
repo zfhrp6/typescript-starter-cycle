@@ -1,8 +1,8 @@
 import { Stream } from 'xstream';
-import { Home } from './Home';
 import { Sources, Sinks } from 'components/App';
 import { Layout } from 'layouts';
 import switchPath from 'switch-path';
+import { Home } from './Home';
 import { Commits } from './Commits';
 
 export interface RouteComponent {
@@ -62,6 +62,6 @@ const resolveImplementation = <T>(routes: RouteDefinitions, route: string): Rout
     getLayout,
     sources
   };
-}
+};
 
 export const resolve = (route: string) => resolveImplementation(routes, route);

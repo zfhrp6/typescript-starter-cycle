@@ -26,7 +26,7 @@ const BackButtonComponent = ({ dom, class$ }: Sources): Sinks => {
   return {
     dom: vdom$,
     history: goBack$
-  }
+  };
 };
 
 export const BackButton = (sources: Sources): Sinks => isolate(BackButtonComponent)(sources);

@@ -3,8 +3,8 @@ import { DOMSource, VNode, nav, a } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { style } from 'typestyle';
 import { rem } from 'csx';
-import { NavLink } from '../NavLink';
 import { Location } from '@cycle/history';
+import { NavLink } from '../NavLink';
 
 interface Sources {
   dom: DOMSource;
@@ -66,7 +66,7 @@ const menuItems = [
 
 const NavMenuComponent = ({ dom, history }: Sources): Sinks => {
   const navLinks = menuItems.map(({ href, title }) => NavLink({ dom, history, href$: Stream.of(href), title$: Stream.of(title) }));
-  const navLinksDom$ = Stream.combine(...navLinks.map(navLink => navLink.dom))
+  const navLinksDom$ = Stream.combine(...navLinks.map(navLink => navLink.dom));
   const vdom$ = navLinksDom$.map(navLinks => nav(`.${className}`, navLinks));
   return {
     dom: vdom$
