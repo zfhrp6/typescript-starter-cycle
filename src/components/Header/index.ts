@@ -32,8 +32,6 @@ const className = style({
   }
 });
 
-const xs = Stream;
-
 export const Header = ({ dom, history }: Sources): Sinks => {
   const navMenu = NavMenu({ dom, history });
   const vdom$ = navMenu.dom.map(navMenu =>

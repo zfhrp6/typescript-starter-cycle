@@ -15,8 +15,6 @@ const className = style({
   marginLeft: rem(1)
 });
 
-const xs = Stream;
-
 const getDom = ({ sha, commit: { message, author: { name, email, date } } }: Commit) => [
   h3([message.split('\n\n')[0]]),
   h4([strong([name])]),
@@ -36,10 +34,10 @@ export const Details: (sources: Sources) => Partial<Sinks> = ({ dom, github, sha
   const contents$ = loaded$.map(loaded =>
     loaded
       ? details$.map(commit => getDom(commit))
-      : xs.of([h3(['Loading...'])])
+      : Stream.of([h3(['Loading...'])])
   ).flatten();
   const vdom$ =
-    xs.combine(backButton.dom, contents$)
+    Stream.combine(backButton.dom, contents$)
       .map(([backButton, contents]) =>
         div([
           backButton,

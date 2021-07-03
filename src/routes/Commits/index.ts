@@ -8,8 +8,6 @@ const getHeaderLayout = async () => {
   return HeaderLayout;
 };
 
-const xs = Stream;
-
 export const Commits: RouteDefinitions = {
   '/': {
     getComponent: async () => {
@@ -25,7 +23,7 @@ export const Commits: RouteDefinitions = {
       return Details;
     },
     sources: {
-      sha$: xs.of(sha)
+      sha$: Stream.of(sha)
     },
     getLayout: getHeaderLayout
   })
