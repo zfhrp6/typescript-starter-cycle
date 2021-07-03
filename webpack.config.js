@@ -3,8 +3,8 @@ var webpack = require('webpack');
 var path = require('path');
 var debug = require('debug')('app:config:webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-// var CleanupPlugin = require('webpack-cleanup-plugin');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+var TerserPlugin = require('terser-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Environment Constants
@@ -72,10 +72,21 @@ webpackConfig.output = {
   publicPath: PROJECT_PUBLIC_PATH
 };
 
+// Optimization
+webpackConfig.optimization = {
+  chunkIds: 'total-size',
+  minimize: true,
+  minimizer: [new TerserPlugin()],
+  moduleIds: 'size',
+  splitChunks: {
+    chunks: 'initial',
+  },
+};
+
 // Plugins
 webpackConfig.plugins = [
   new webpack.DefinePlugin(GLOBALS),
-  // new CleanupPlugin(),
+  new CleanWebpackPlugin(),
   new HtmlWebpackPlugin({
     template: path.join(SRC, 'index.html'),
     hash: false,
@@ -99,29 +110,15 @@ if (__DEV__) {
     new webpack.NoEmitOnErrorsPlugin()
   )
 } else if (__PROD__) {
-  // debug('Enabling plugins for production (OccurrenceOrder & UglifyJS).')
-  // webpackConfig.plugins.push(
-  //   new webpack.optimize.OccurrenceOrderPlugin(),
-  //   new UglifyJSPlugin({
-  //     uglifyOptions: {
-  //       compress: {
-  //         unused: true,
-  //         dead_code: true,
-  //         warnings: false
-  //       }
-  //     }
-  //   }),
-  //   new webpack.optimize.AggressiveMergingPlugin()
-  // )
+  debug('Enabling plugins for production (OccurrenceOrder & UglifyJS).')
+  webpackConfig.plugins.push(
+    new webpack.optimize.AggressiveMergingPlugin()
+  )
 }
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
-  // webpackConfig.plugins.push(
-  //   new webpack.optimize.CommonsChunkPlugin({
-  //     names: ['vendor']
-  //   })
-  // )
+  delete webpackConfig.optimization.splitChunks;
 }
 
 // Rules
