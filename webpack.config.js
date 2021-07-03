@@ -1,22 +1,22 @@
-var argv = require('yargs').argv;
-var webpack = require('webpack');
-var path = require('path');
-var debug = require('debug')('app:config:webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const argv = require('yargs').argv;
+const webpack = require('webpack');
+const path = require('path');
+const debug = require('debug')('app:config:webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-var TerserPlugin = require('terser-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Environment Constants
-var NODE_ENV = process.env.NODE_ENV;
-var API_ENDPOINT = JSON.stringify(process.env.API_ENDPOINT);
-var APP_URL = JSON.stringify(process.env.APP_URL);
-var __DEV__ = NODE_ENV === 'development';
-var __PROD__ = NODE_ENV === 'production';
-var __TEST__ = NODE_ENV === 'test';
-var __COVERAGE__ = !argv.watch && __TEST__;
-var __BASENAME__ = JSON.stringify(process.env.BASENAME || '');
-var GLOBALS = {
+const NODE_ENV = process.env.NODE_ENV;
+const API_ENDPOINT = JSON.stringify(process.env.API_ENDPOINT);
+const APP_URL = JSON.stringify(process.env.APP_URL);
+const __DEV__ = NODE_ENV === 'development';
+const __PROD__ = NODE_ENV === 'production';
+const __TEST__ = NODE_ENV === 'test';
+const __COVERAGE__ = !argv.watch && __TEST__;
+const __BASENAME__ = JSON.stringify(process.env.BASENAME || '');
+const GLOBALS = {
   'process.env': { NODE_ENV: JSON.stringify(NODE_ENV) },
   NODE_ENV: NODE_ENV,
   __DEV__: __DEV__,
@@ -27,13 +27,13 @@ var GLOBALS = {
 };
 
 // Constants
-var ROOT = path.resolve(__dirname);
-var DIST = path.join(ROOT, 'dist');
-var SRC = path.join(ROOT, 'src');
-var PROJECT_PUBLIC_PATH = '/';
+const ROOT = path.resolve(__dirname);
+const DIST = path.join(ROOT, 'dist');
+const SRC = path.join(ROOT, 'src');
+const PROJECT_PUBLIC_PATH = '/';
 
 // Base Configuration
-var webpackConfig = {
+const webpackConfig = {
   name: 'client',
   target: 'web',
   devtool: 'source-map',
@@ -45,8 +45,8 @@ var webpackConfig = {
 };
 
 // Entry
-var APP_ENTRY = path.join(SRC, 'app.ts');
-var WEBPACK_DEV_SERVER = `webpack-dev-server/client?path=${PROJECT_PUBLIC_PATH}`
+const APP_ENTRY = path.join(SRC, 'app.ts');
+const WEBPACK_DEV_SERVER = `webpack-dev-server/client?path=${PROJECT_PUBLIC_PATH}`
 webpackConfig.entry = {
   app: __DEV__
     ? [WEBPACK_DEV_SERVER, APP_ENTRY]
@@ -110,7 +110,6 @@ if (__DEV__) {
     new webpack.NoEmitOnErrorsPlugin()
   )
 } else if (__PROD__) {
-  debug('Enabling plugins for production (OccurrenceOrder & UglifyJS).')
   webpackConfig.plugins.push(
     new webpack.optimize.AggressiveMergingPlugin()
   )
