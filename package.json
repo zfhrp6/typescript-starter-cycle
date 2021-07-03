@@ -31,11 +31,11 @@
     "@cycle/isolate": "^3.1.0",
     "@cycle/run": "^3.3.0",
     "csstips": "^0.2.2",
-    "csx": "^8.5.0",
+    "csx": "^10.0.2",
     "ramda": "^0.25.0",
     "switch-path": "^1.2.0",
     "typestyle": "^1.4.3",
-    "xstream": "^11.0.0"
+    "xstream": "^11.14.0"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^4.1.1",
