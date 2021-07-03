@@ -34,5 +34,5 @@ To make full use of these, you need the following extensions:
 
 ### Troubleshooting / Tips
 * If using on Windows machines, make sure you have the [build tools](https://github.com/felixrieseberg/windows-build-tools) ready before doing an `npm install`.
-* If hosting on a subdirectory, you need to change the `PROJECT_PUBLIC_PATH` in `webpack.config.js` only for production. You can do this by changing line #32 of the file to `var PROJECT_PUBLIC_PATH = __PROD__ ? '<your-public-path-here>' : '/';`
+* If hosting on a subdirectory, you need to change the `PROJECT_PUBLIC_PATH` in `webpack.config.js` only for production. You can do this by changing line #32 of the file to `const PROJECT_PUBLIC_PATH = __PROD__ ? '<your-public-path-here>' : '/';`
 * If you need help with something, or have feedback, suggestions, feel free to open an issue on this repository.
