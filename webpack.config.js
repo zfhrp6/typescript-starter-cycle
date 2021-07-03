@@ -66,7 +66,7 @@ webpackConfig.entry = {
 
 // Output
 webpackConfig.output = {
-  filename: `[name].[hash].js`,
+  filename: `[name].[contenthash].js`,
   chunkFilename: '[name].[chunkhash].js',
   path: DIST,
   publicPath: PROJECT_PUBLIC_PATH
