@@ -38,7 +38,7 @@ const CommitListItemComponent = ({ dom, commit$ }: Sources): Sinks => {
       dom
         .select('li')
         .events('click', { preventDefault: true })
-        .map((ev) => `/commits/${sha}`)
+        .map(() => `/commits/${sha}`)
     )
     .flatten();
   const vdom$ = commit$.map(
@@ -46,7 +46,7 @@ const CommitListItemComponent = ({ dom, commit$ }: Sources): Sinks => {
       sha,
       commit: {
         message,
-        author: { name, email, date },
+        author: { name, date },
       },
     }) =>
       li(`.${className}`, [

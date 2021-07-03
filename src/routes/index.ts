@@ -1,4 +1,3 @@
-import { Stream } from 'xstream';
 import { Sources, Sinks } from 'components/App';
 import { Layout } from 'layouts';
 import switchPath from 'switch-path';

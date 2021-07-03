@@ -1,5 +1,5 @@
 import { Stream, MemoryStream } from 'xstream';
-import { MainDOMSource, VNode, div } from '@cycle/dom';
+import { MainDOMSource, VNode } from '@cycle/dom';
 import { HistoryInput, Location } from '@cycle/history';
 import { resolve } from 'routes';
 import { pluck } from 'utils/pluck';

@@ -1,9 +1,9 @@
 import { RouteComponent } from 'routes';
 import { Stream } from 'xstream';
-import { div, h2, p, ul, li, VNode } from '@cycle/dom';
+import { div, h2, p, ul, VNode } from '@cycle/dom';
 import { CommitListItem } from './components/CommitListItem';
 
-export const List: RouteComponent = ({ dom, history, github }) => {
+export const List: RouteComponent = ({ dom, github }) => {
   const commits$ = github.commits();
   const loaded$ = commits$.mapTo(true).startWith(false);
   const commitListItems$ = commits$.map((commits) =>

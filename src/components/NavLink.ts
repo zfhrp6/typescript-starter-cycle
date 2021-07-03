@@ -17,7 +17,7 @@ interface Sinks {
 
 const xs = Stream;
 
-const NavLinkComponent = ({ dom, history, href$, title$ }: Sources): Sinks => {
+const NavLinkComponent = ({ history, href$, title$ }: Sources): Sinks => {
   const currentHref$ = history.map((location) => location.pathname);
   const active$ = currentHref$.map((href) => href$.map((h) => href === h)).flatten();
   const vdom$ = xs
