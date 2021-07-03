@@ -3,8 +3,8 @@ import { DOMSource, VNode, nav, a } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { style } from 'typestyle';
 import { rem } from 'csx';
-import { NavLink } from '../NavLink';
 import { Location } from '@cycle/history';
+import { NavLink } from '../NavLink';
 
 interface Sources {
   dom: DOMSource;
@@ -21,12 +21,12 @@ const navLink = {
   fontWeight: 700,
   marginRight: rem(1),
   textDecoration: 'none',
-  transition: 'color .3s'
+  transition: 'color .3s',
 };
 const navLinkHover = {
   ...navLink,
   cursor: 'pointer',
-  color: '#666'
+  color: '#666',
 };
 
 const className = style({
@@ -38,38 +38,40 @@ const className = style({
       textTransform: 'uppercase',
       $nest: {
         '&:first-child': {
-          marginLeft: 'auto'
+          marginLeft: 'auto',
         },
         '&:hover': navLinkHover,
         '&.active': {
-          color: '#333'
-        }
-      }
-    }
-  }
+          color: '#333',
+        },
+      },
+    },
+  },
 });
 
 const menuItems = [
   {
     href: '/',
-    title: 'Home'
+    title: 'Home',
   },
   {
     href: '/commits',
-    title: 'Commits'
+    title: 'Commits',
   },
   {
     href: '/about',
-    title: 'About'
-  }
+    title: 'About',
+  },
 ];
 
 const NavMenuComponent = ({ dom, history }: Sources): Sinks => {
-  const navLinks = menuItems.map(({ href, title }) => NavLink({ dom, history, href$: Stream.of(href), title$: Stream.of(title) }));
-  const navLinksDom$ = Stream.combine(...navLinks.map(navLink => navLink.dom))
-  const vdom$ = navLinksDom$.map(navLinks => nav(`.${className}`, navLinks));
+  const navLinks = menuItems.map(({ href, title }) =>
+    NavLink({ dom, history, href$: Stream.of(href), title$: Stream.of(title) })
+  );
+  const navLinksDom$ = Stream.combine(...navLinks.map((navLink) => navLink.dom));
+  const vdom$ = navLinksDom$.map((navLinks) => nav(`.${className}`, navLinks));
   return {
-    dom: vdom$
+    dom: vdom$,
   };
 };
 

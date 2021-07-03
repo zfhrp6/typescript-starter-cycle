@@ -16,17 +16,17 @@ interface Sinks {
 const xs = Stream;
 
 const BackButtonComponent = ({ dom, class$ }: Sources): Sinks => {
-  const goBack$ =
-    dom.select('button')
-      .events('click', { preventDefault: true })
-      .mapTo<HistoryInput>({ type: 'goBack' });
-  const vdom$ =
-    (class$ || xs.of(''))
-      .map(className => button(`.back-button.${className}`, ['Back']));
+  const goBack$ = dom
+    .select('button')
+    .events('click', { preventDefault: true })
+    .mapTo<HistoryInput>({ type: 'goBack' });
+  const vdom$ = (class$ || xs.of('')).map((className) =>
+    button(`.back-button.${className}`, ['Back'])
+  );
   return {
     dom: vdom$,
-    history: goBack$
-  }
+    history: goBack$,
+  };
 };
 
 export const BackButton = (sources: Sources): Sinks => isolate(BackButtonComponent)(sources);

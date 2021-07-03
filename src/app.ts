@@ -1,10 +1,10 @@
 import { run } from '@cycle/run';
-import { App } from './components/App';
 import { makeDOMDriver } from '@cycle/dom';
 import { captureClicks, makeHashHistoryDriver } from '@cycle/history';
 import { cssRaw } from 'typestyle';
 import { normalize, setupPage } from 'csstips';
 import { makeGithubDriver } from 'drivers/github';
+import { App } from './components/App';
 
 normalize();
 setupPage('#app');
@@ -32,5 +32,5 @@ cssRaw(`
 run(App, {
   dom: makeDOMDriver('#app'),
   history: captureClicks(makeHashHistoryDriver()),
-  github: makeGithubDriver()
+  github: makeGithubDriver(),
 });
