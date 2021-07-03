@@ -11,24 +11,23 @@ const className = style({
       padding: rem(1),
     },
     '&>main': {
-      padding: rem(1)
-    }
-  }
+      padding: rem(1),
+    },
+  },
 });
 
-export const HeaderLayout: Layout = ({ dom, history, component: { dom: componentDom, ...component } }) => {
+export const HeaderLayout: Layout = ({
+  dom,
+  history,
+  component: { dom: componentDom, ...component },
+}) => {
   const headerComponent = Header({ dom, history });
-  const vdom$ =
-    Stream.combine(headerComponent.dom, componentDom || Stream.empty())
-      .map(([headerDom, component]) =>
-        div(`.header.layout.${className}`, [
-          header(headerDom),
-          hr(),
-          main(component)
-        ])
-      );
+  const vdom$ = Stream.combine(headerComponent.dom, componentDom || Stream.empty()).map(
+    ([headerDom, component]) =>
+      div(`.header.layout.${className}`, [header(headerDom), hr(), main(component)])
+  );
   return {
     dom: vdom$,
-    ...component
+    ...component,
   };
 };

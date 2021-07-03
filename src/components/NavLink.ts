@@ -18,17 +18,16 @@ interface Sinks {
 const xs = Stream;
 
 const NavLinkComponent = ({ dom, history, href$, title$ }: Sources): Sinks => {
-  const currentHref$ = history.map(location => location.pathname);
-  const active$ =
-    currentHref$
-      .map(href => href$.map(h => href === h))
-      .flatten();
-  const vdom$ =
-    xs.combine(href$, active$, title$)
-      .map(([ href, active, title ]) => a(`${active ? '.active' : ''}`, { attrs: { href, title } }, [title]));
+  const currentHref$ = history.map((location) => location.pathname);
+  const active$ = currentHref$.map((href) => href$.map((h) => href === h)).flatten();
+  const vdom$ = xs
+    .combine(href$, active$, title$)
+    .map(([href, active, title]) =>
+      a(`${active ? '.active' : ''}`, { attrs: { href, title } }, [title])
+    );
   return {
     dom: vdom$,
-    history: xs.empty()
+    history: xs.empty(),
   };
 };
 

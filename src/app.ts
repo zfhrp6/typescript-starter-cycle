@@ -32,5 +32,5 @@ cssRaw(`
 run(App, {
   dom: makeDOMDriver('#app'),
   history: captureClicks(makeHashHistoryDriver()),
-  github: makeGithubDriver()
+  github: makeGithubDriver(),
 });

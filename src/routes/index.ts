@@ -17,7 +17,7 @@ interface RouteResolution {
 }
 
 interface ParameterizedRouteResolution {
-  (a: string, b?:string, c?: string, d?: string): RouteResolution;
+  (a: string, b?: string, c?: string, d?: string): RouteResolution;
 }
 
 export interface RouteDefinitions {
@@ -26,41 +26,49 @@ export interface RouteDefinitions {
 
 // Example of async layout loading
 const getHeaderLayout = async () => {
-  const { HeaderLayout } = await import(/* webpackChunkName: "HeaderLayout" */'layouts/HeaderLayout');
+  const { HeaderLayout } = await import(
+    /* webpackChunkName: "HeaderLayout" */ 'layouts/HeaderLayout'
+  );
   return HeaderLayout;
 };
 
 // Helper to directly load components and layouts
-const getComponent = <T>(component: T) => async () => await Promise.resolve(component);
+const getComponent =
+  <T>(component: T) =>
+  async () =>
+    await Promise.resolve(component);
 
 const routes: RouteDefinitions = {
   '/': {
     getComponent: getComponent(Home),
-    getLayout: getHeaderLayout
+    getLayout: getHeaderLayout,
   },
   '/about': {
     // Example of async component loading
     // The component does not expose its own async loader because the requiring component
     // should have the power to decide on async loading.
     getComponent: async () => {
-      const { About } = await import(/* webpackChunkName: "About" */'./About');
+      const { About } = await import(/* webpackChunkName: "About" */ './About');
       return About;
     },
-    getLayout: getHeaderLayout
+    getLayout: getHeaderLayout,
   },
   // Example of loading route definitions (and nested routes)
   // The synchronous sub routes are instantly loaded, the async sub routes
   // are loaded asynchronously on demand.
-  '/commits': Commits
+  '/commits': Commits,
 };
 
 const resolveImplementation = <T>(routes: RouteDefinitions, route: string): RouteResolution => {
-  const { path, value: { getComponent, getLayout, sources } } = switchPath(route, routes);
+  const {
+    path,
+    value: { getComponent, getLayout, sources },
+  } = switchPath(route, routes);
   return {
     path,
     getComponent,
     getLayout,
-    sources
+    sources,
   };
 };
 

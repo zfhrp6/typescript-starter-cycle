@@ -4,5 +4,5 @@ import { h2 } from '@cycle/dom';
 
 export const Home: RouteComponent = () => ({
   dom: Stream.of(h2(['Home'])),
-  history: Stream.empty()
+  history: Stream.empty(),
 });

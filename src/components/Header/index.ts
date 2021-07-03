@@ -21,30 +21,30 @@ const className = style({
       marginBottom: 0,
       marginTop: 0,
       flex: '1 0 60%',
-      lineHeight: 1
+      lineHeight: 1,
     },
     '& em': {
-      fontSize: rem(1)
+      fontSize: rem(1),
     },
     '& nav': {
-      flex: 1
-    }
-  }
+      flex: 1,
+    },
+  },
 });
 
 export const Header = ({ dom, history }: Sources): Sinks => {
   const navMenu = NavMenu({ dom, history });
-  const vdom$ = navMenu.dom.map(navMenu =>
+  const vdom$ = navMenu.dom.map((navMenu) =>
     div(`.${className}`, [
       h1([
         'TypeScript Starter Cycle',
         br(),
-        em('An opinionated starter for Cycle.js projects powered by TypeScript')
+        em('An opinionated starter for Cycle.js projects powered by TypeScript'),
       ]),
-      navMenu
+      navMenu,
     ])
   );
   return {
-    dom: vdom$
+    dom: vdom$,
   };
 };

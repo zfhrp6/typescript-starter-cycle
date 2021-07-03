@@ -3,15 +3,15 @@ import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/htt
 
 const toRequestOptions = (sha: string): RequestOptions => {
   const single = !!sha;
-  const url =
-    `https://api.github.com/repos/cyclejs-community/typescript-starter-cycle/commits${
-     single ? `/${sha}` : ''}`;
+  const url = `https://api.github.com/repos/cyclejs-community/typescript-starter-cycle/commits${
+    single ? `/${sha}` : ''
+  }`;
   const category = single ? `commit-by-sha-${sha}` : 'commits';
   return {
     url,
     method: 'GET',
     category,
-    accept: 'application/vnd.github.v3+json'
+    accept: 'application/vnd.github.v3+json',
   };
 };
 
@@ -23,8 +23,8 @@ export interface Commit {
       name: string;
       email: string;
       date: Date;
-    }
-  }
+    };
+  };
 }
 
 export class GithubSource {
@@ -35,31 +35,34 @@ export class GithubSource {
   commits(sha: string): Stream<Commit>;
 
   commits(sha?: string) {
-    return sha
-      ? this.__commitBySha(sha)
-      : this.__commits();
+    return sha ? this.__commitBySha(sha) : this.__commits();
   }
 
   constructor(commitsRequest$: Stream<string>) {
-    const request$ = commitsRequest$.map(sha => toRequestOptions(sha));
+    const request$ = commitsRequest$.map((sha) => toRequestOptions(sha));
     this.http = makeHTTPDriver()(request$);
   }
 
   private __commits() {
     const response$$: Stream<Stream<Response>> = this.http.select('commits');
     return response$$
-      .map(response$ => response$.replaceError(() => Stream.of({ status: 500, body: [] } as Response)))
+      .map((response$) =>
+        response$.replaceError(() => Stream.of({ status: 500, body: [] } as Response))
+      )
       .flatten()
-      .map(response => response.body as Commit[]);
+      .map((response) => response.body as Commit[]);
   }
 
   private __commitBySha(sha: string) {
     const response$$: Stream<Stream<Response>> = this.http.select(`commit-by-sha-${sha}`);
     return response$$
-      .map(response$ => response$.replaceError(() => Stream.of({ status: 500, body: {} } as Response)))
+      .map((response$) =>
+        response$.replaceError(() => Stream.of({ status: 500, body: {} } as Response))
+      )
       .flatten()
-      .map(response => response.body as Commit);
+      .map((response) => response.body as Commit);
   }
 }
 
-export const makeGithubDriver = () => (commitsRequest$: Stream<string>) => new GithubSource(commitsRequest$);
+export const makeGithubDriver = () => (commitsRequest$: Stream<string>) =>
+  new GithubSource(commitsRequest$);
