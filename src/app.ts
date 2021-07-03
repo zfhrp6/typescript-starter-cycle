@@ -1,5 +1,5 @@
 import { run } from '@cycle/run';
-import { App } from 'components/App';
+import { App } from './components/App';
 import { makeDOMDriver } from '@cycle/dom';
 import { captureClicks, makeHashHistoryDriver } from '@cycle/history';
 import { cssRaw } from 'typestyle';

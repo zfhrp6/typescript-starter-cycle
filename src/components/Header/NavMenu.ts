@@ -49,7 +49,6 @@ const className = style({
   }
 });
 
-const xs = Stream;
 const menuItems = [
   {
     href: '/',
@@ -66,8 +65,8 @@ const menuItems = [
 ];
 
 const NavMenuComponent = ({ dom, history }: Sources): Sinks => {
-  const navLinks = menuItems.map(({ href, title }) => NavLink({ dom, history, href$: xs.of(href), title$: xs.of(title) }));
-  const navLinksDom$ = xs.combine(...navLinks.map(navLink => navLink.dom))
+  const navLinks = menuItems.map(({ href, title }) => NavLink({ dom, history, href$: Stream.of(href), title$: Stream.of(title) }));
+  const navLinksDom$ = Stream.combine(...navLinks.map(navLink => navLink.dom))
   const vdom$ = navLinksDom$.map(navLinks => nav(`.${className}`, navLinks));
   return {
     dom: vdom$

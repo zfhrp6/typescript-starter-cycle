@@ -27,8 +27,6 @@ export interface Commit {
   }
 }
 
-const xs = Stream;
-
 export class GithubSource {
   http: HTTPSource;
   commits(): Stream<Commit[]>;
@@ -45,14 +43,14 @@ export class GithubSource {
   private __commits() {
     const response$$: Stream<Stream<Response>> = this.http.select('commits');
     return response$$
-      .map(response$ => response$.replaceError(() => xs.of({ status: 500, body: [] } as Response)))
+      .map(response$ => response$.replaceError(() => Stream.of({ status: 500, body: [] } as Response)))
       .flatten()
       .map(response => response.body as Commit[]);
   }
   private __commitBySha(sha: string) {
     const response$$: Stream<Stream<Response>> = this.http.select(`commit-by-sha-${sha}`);
     return response$$
-      .map(response$ => response$.replaceError(() => xs.of({ status: 500, body: {} } as Response)))
+      .map(response$ => response$.replaceError(() => Stream.of({ status: 500, body: {} } as Response)))
       .flatten()
       .map(response => response.body as Commit);
   }

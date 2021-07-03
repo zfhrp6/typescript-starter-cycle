@@ -1,4 +1,3 @@
-import { pluck } from 'utils/pluck';
 import { Layout } from './';
 import { Header } from 'components/Header';
 import { Stream } from 'xstream';
@@ -17,12 +16,10 @@ const className = style({
   }
 });
 
-const xs = Stream;
-
-export const HeaderLayout: Layout = ({ dom, history, github, component: { dom: componentDom, ...component } }) => {
+export const HeaderLayout: Layout = ({ dom, history, component: { dom: componentDom, ...component } }) => {
   const headerComponent = Header({ dom, history });
   const vdom$ =
-    xs.combine(headerComponent.dom, componentDom || xs.empty())
+    Stream.combine(headerComponent.dom, componentDom || Stream.empty())
       .map(([headerDom, component]) =>
         div(`.header.layout.${className}`, [
           header(headerDom),
