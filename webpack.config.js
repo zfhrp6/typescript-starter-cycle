@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 var debug = require('debug')('app:config:webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CleanupPlugin = require('webpack-cleanup-plugin');
+// var CleanupPlugin = require('webpack-cleanup-plugin');
 var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -75,7 +75,7 @@ webpackConfig.output = {
 // Plugins
 webpackConfig.plugins = [
   new webpack.DefinePlugin(GLOBALS),
-  new CleanupPlugin(),
+  // new CleanupPlugin(),
   new HtmlWebpackPlugin({
     template: path.join(SRC, 'index.html'),
     hash: false,
@@ -84,10 +84,12 @@ webpackConfig.plugins = [
     inject: 'body',
     minify: { collapseWhitespace: true }
   }),
-  new CopyWebpackPlugin([
-    { from: 'src/images', to: 'images' },
-    { from: 'src/fonts', to: 'fonts' }
-  ])
+  new CopyWebpackPlugin({
+    patterns: [
+      { from: 'src/images', to: 'images' },
+      { from: 'src/fonts', to: 'fonts' }
+    ]
+  })
 ];
 
 if (__DEV__) {
@@ -97,29 +99,29 @@ if (__DEV__) {
     new webpack.NoEmitOnErrorsPlugin()
   )
 } else if (__PROD__) {
-  debug('Enabling plugins for production (OccurrenceOrder & UglifyJS).')
-  webpackConfig.plugins.push(
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new UglifyJSPlugin({
-      uglifyOptions: {
-        compress: {
-          unused: true,
-          dead_code: true,
-          warnings: false
-        }
-      }
-    }),
-    new webpack.optimize.AggressiveMergingPlugin()
-  )
+  // debug('Enabling plugins for production (OccurrenceOrder & UglifyJS).')
+  // webpackConfig.plugins.push(
+  //   new webpack.optimize.OccurrenceOrderPlugin(),
+  //   new UglifyJSPlugin({
+  //     uglifyOptions: {
+  //       compress: {
+  //         unused: true,
+  //         dead_code: true,
+  //         warnings: false
+  //       }
+  //     }
+  //   }),
+  //   new webpack.optimize.AggressiveMergingPlugin()
+  // )
 }
 
 // Don't split bundles during testing, since we only want import one bundle
 if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
-    })
-  )
+  // webpackConfig.plugins.push(
+  //   new webpack.optimize.CommonsChunkPlugin({
+  //     names: ['vendor']
+  //   })
+  // )
 }
 
 // Rules

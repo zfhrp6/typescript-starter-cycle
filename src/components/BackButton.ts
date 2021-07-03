@@ -1,10 +1,10 @@
 import { Stream } from 'xstream';
 import { HistoryInput } from '@cycle/history';
-import { DOMSource, VNode, button } from '@cycle/dom';
+import { MainDOMSource, VNode, button } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 
 interface Sources {
-  dom: DOMSource;
+  dom: MainDOMSource;
   class$?: Stream<string>;
 }
 
