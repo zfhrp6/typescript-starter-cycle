@@ -1,12 +1,12 @@
 import { Stream } from 'xstream';
-import { DOMSource, VNode, li, h4, h5, strong, em } from '@cycle/dom';
+import { MainDOMSource, VNode, li, h4, h5, strong, em } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { Commit } from 'drivers/github';
 import { style } from 'typestyle';
 import { rem } from 'csx';
 
 interface Sources {
-  dom: DOMSource;
+  dom: MainDOMSource;
   commit$: Stream<Commit>;
 }
 

@@ -40,7 +40,7 @@ export class GithubSource {
   }
   constructor(commitsRequest$: Stream<string>) {
     const request$ = commitsRequest$.map(sha => toRequestOptions(sha));
-    this.http = makeHTTPDriver()(request$, 'githubHttp');
+    this.http = makeHTTPDriver()(request$);
   }
   private __commits() {
     const response$$: Stream<Stream<Response>> = this.http.select('commits');

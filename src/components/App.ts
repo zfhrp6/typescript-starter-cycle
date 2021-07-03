@@ -1,12 +1,12 @@
 import { Stream, MemoryStream } from 'xstream';
-import { DOMSource, VNode, div } from '@cycle/dom';
+import { MainDOMSource, VNode, div } from '@cycle/dom';
 import { HistoryInput, Location } from '@cycle/history';
 import { resolve } from 'routes';
 import { pluck } from 'utils/pluck';
 import { GithubSource } from 'drivers/github';
 
 export interface Sources {
-  dom: DOMSource;
+  dom: MainDOMSource;
   history: MemoryStream<Location>;
   github: GithubSource;
 }
